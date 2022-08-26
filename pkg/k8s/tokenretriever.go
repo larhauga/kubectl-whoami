@@ -1,7 +1,10 @@
 package k8s
 
 import (
+	"context"
+
 	authorizationv1 "k8s.io/api/authorization/v1"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
 )
 
@@ -13,6 +16,6 @@ func WhatCanI(kubeclient kubernetes.Interface) error {
 		},
 	}
 
-	_, err := kubeclient.AuthorizationV1().SelfSubjectRulesReviews().Create(sar)
+	_, err := kubeclient.AuthorizationV1().SelfSubjectRulesReviews().Create(context.Background(), sar, v1.CreateOptions{})
 	return err
 }
